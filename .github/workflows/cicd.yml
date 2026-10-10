@@ -12,6 +12,23 @@ permissions:
   contents: read
 
 jobs:
+  dockerbuild:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build DockerImage
+        uses: actions/checkout@v4
+
+      
+
+      - name: Install dependencies
+        run: docker build . --file DockerFile --tag workflow-test:$(date +%s) 
+
+      - name: Run tests
+        run: |
+          python -m pytest -v
+    
   build-and-test:
     runs-on: ubuntu-latest
 
